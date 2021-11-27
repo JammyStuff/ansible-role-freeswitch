@@ -1,0 +1,19 @@
+---
+name: CI
+on:
+  push:
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+      - name: Install linters
+        run: pip install "ansible-lint[community,yamllint]"
+      - name: Run ansible-lint
+        run: ansible-lint
