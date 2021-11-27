@@ -17,3 +17,24 @@ jobs:
         run: pip install "ansible-lint[community,yamllint]"
       - name: Run ansible-lint
         run: ansible-lint
+  molecule:
+    name: Molecule
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        distro:
+          - debian10
+          - debian11
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+      - name: Install molecule and dependencies
+        run: pip install ansible "molecule[docker]" docker
+      - name: Run molecule
+        run: molecule test
+        env:
+          MOLECULE_DISTRO: ${{ matrix.distro }}
