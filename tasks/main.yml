@@ -8,3 +8,12 @@
   ansible.builtin.apt_repository:
     repo: deb https://files.freeswitch.org/repo/deb/freeswitch-{{ freeswitch_release }}/ {{ ansible_distribution_release }} main
     filename: freeswitch
+- name: Install core FreeSWITCH pakages
+  ansible.builtin.apt:
+    name: "{{ item }}"
+  loop:
+    - freeswitch
+    - freeswitch-systemd
+    - freeswitch-mod-commands
+    - freeswitch-timezones
+    - freeswitch-music-default
