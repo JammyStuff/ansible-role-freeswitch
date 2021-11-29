@@ -1,7 +1,12 @@
 ---
+# SPDX-License-Identifier: MPL-2.0
 - name: Converge
   hosts: all
   tasks:
+    - name: Install gnupg
+      ansible.builtin.apt:
+        name: gnupg
+        update_cache: yes
     - name: "Include jammystuff.freeswitch"
       include_role:
         name: "jammystuff.freeswitch"

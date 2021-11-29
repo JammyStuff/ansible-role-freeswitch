@@ -1,2 +1,10 @@
 ---
-# tasks file for jammystuff.freeswitch
+# SPDX-License-Identifier: MPL-2.0
+- name: Add FreeSWITCH apt repository key
+  ansible.builtin.apt_key:
+    url: https://files.freeswitch.org/repo/deb/debian-release/fsstretch-archive-keyring.asc
+    id: 5E098B3D18406E8E19543709BD3189F5A2B57698
+- name: Add FreeSWITCH apt repository
+  ansible.builtin.apt_repository:
+    repo: deb https://files.freeswitch.org/repo/deb/freeswitch-{{ freeswitch_release }}/ {{ ansible_distribution_release }} main
+    filename: freeswitch
